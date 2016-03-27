@@ -5,9 +5,9 @@ module Twilio
       attr_reader :text
       alias_method :to_xml , :text
 
-      def initialize(&block)
+      def initialize(options = {}, &block)
         xml = Builder::XmlMarkup.new
-        xml.instruct!
+        xml.instruct! :xml, { :version => "1.0", :encoding => "UTF-8" }.merge(options)
         @text = xml.Response &block
       end
 
